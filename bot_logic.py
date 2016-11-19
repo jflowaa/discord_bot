@@ -2,7 +2,7 @@ import random
 import sqlite3
 import operator
 import matplotlib
-matplotlib.use("Agg")
+matplotlib.use("agg")
 import matplotlib.pyplot as plt
 
 
@@ -15,7 +15,7 @@ class BotLogic:
         self.game_channel = None
         self.local_random = random.Random()
         self.create_db()
-        self.bad_chars = [".", "?", "!", " ", ","]
+        self.bad_chars = [".", "?", "!", " ", ",", "\""]
 
     def create_db(self):
         self.connection = sqlite3.connect("word_count.db")
