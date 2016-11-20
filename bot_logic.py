@@ -32,28 +32,36 @@ class BotLogic:
         author = message.author.display_name
         words = message.content.split()
         for word in words:
-            word = "".join([c for c in word if c not in self.bad_chars]).lower()
+            word = "".join(
+                [c for c in word if c not in self.bad_chars]).lower()
             if len(word) > 2:
-                data = self.connection.execute("select id, count from words where word=? and author=?", (word, author)).fetchone()
+                data = self.connection.execute(
+                    "select id, count from words where word=? and author=?", (word, author)).fetchone()
                 if data:
-                    self.connection.execute("update words set count=? where id=?", (data[1]  + 1, data[0]))
+                    self.connection.execute(
+                        "update words set count=? where id=?", (data[1] + 1, data[0]))
                 else:
-                    self.connection.execute("insert into words (author, word, count) values (?, ?, ?)", (author, word, 1))
+                    self.connection.execute(
+                        "insert into words (author, word, count) values (?, ?, ?)", (author, word, 1))
                 self.connection.commit()
 
     def get_word_stats(self, author=None):
         if author:
-            data = self.connection.execute("select word, count from words where author=?", (str(author),)).fetchall()
+            data = self.connection.execute(
+                "select word, count from words where author=?", (str(author),)).fetchall()
         else:
-            data = self.connection.execute("select word, count from words").fetchall()
+            data = self.connection.execute(
+                "select word, count from words").fetchall()
         stats = {}
         for d in data:
             stats[d[0]] = d[1]
-        sorted_stats = sorted(stats.items(), key=operator.itemgetter(1), reverse=True)
+        sorted_stats = sorted(
+            stats.items(), key=operator.itemgetter(1), reverse=True)
         return self.chart_stats(sorted_stats)
 
     def get_stats_for_word(self, word):
-        data = self.connection.execute("select word, count from words where word=?", (word,)).fetchone()
+        data = self.connection.execute(
+            "select word, count from words where word=?", (word,)).fetchone()
         if data:
             count = data[1]
         else:

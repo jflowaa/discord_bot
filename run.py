@@ -38,6 +38,12 @@ async def on_message(message):
             await client.send_message(message.channel, str(bot_logic.get_stats_for_word(word[0])))
         else:
             await client.send_message(message.channel, "Improper useage: !statword *word*")
+    elif message.content.startswith("!statperson"):
+        word = message.content.replace("!statperson", "").split()
+        if len(word) == 1 and not word[0].isdigit():
+            await client.send_file(message.channel, str(bot_logic.get_word_stats(word[0])))
+        else:
+            await client.send_message(message.channel, "Improper useage: !statperson *person*")
     elif message.content.startswith("!wipedb"):
         bot_logic.db_wipe()
     elif bot_logic.is_game_active and message.content.isdigit():
