@@ -1,6 +1,8 @@
-/discord.py
-/venv
-word_count.db
+cacabot.db
 chart.png
-/__pycache__
-.cache/
+.idea/discord_bot.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+
+__pycache__/
