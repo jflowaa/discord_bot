@@ -65,3 +65,8 @@ def create_word_stat_dict(words):
             stats[word.word] = word.count
     sorted_stats = sorted(stats.items(), key=operator.itemgetter(1), reverse=True)
     return sorted_stats
+
+
+def wipe_database():
+    with session_scope() as session:
+        _ = session.query(Word).delete()

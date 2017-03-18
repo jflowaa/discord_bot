@@ -5,6 +5,7 @@ import settings
 
 from plugins import GuessingGame
 from bot_logic import track_word_count, get_word_stats, get_stats_for_word, get_count_for_author
+from database import wipe_database
 
 
 client = discord.Client()
@@ -47,6 +48,8 @@ async def on_message(message):
             await client.send_file(message.channel, settings.WORD_COUNT_CHART_FILENAME)
         else:
             await client.send_message(message.channel, "Improper useage: !statperson @person")
+    elif message.content.startswith("!clearstats"):
+        wipe_database()
     elif guessing_game.is_game_active and message.content.isdigit():
         guessing_game.add_guess(message)
     else:
