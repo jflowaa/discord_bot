@@ -22,33 +22,31 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.content.startswith("!guess"):
-        await client.send_message(message.channel, "Guessing game started!")
-        await client.send_message(message.channel, "Say a number in chat between 1 and {}".format(settings.MAX_GUESS))
-        await client.send_message(message.channel, "The game will end in {} seconds".format(settings.GAME_LENGTH_SECONDS))
+        await client.send_message(message.channel, guessing_game.get_starting_message())
         if not guessing_game.is_game_active():
             guessing_game.start_game(message.channel)
             start_game(run_game())
-    elif message.content.startswith("!statme"):
+    elif message.content.startswith("!statsme"):
         get_word_stats(message.author.id)
         await client.send_file(message.channel, settings.WORD_COUNT_CHART_FILENAME)
-    elif message.content.startswith("!statall"):
+    elif message.content.startswith("!statsall"):
         get_word_stats()
         await client.send_file(message.channel, settings.WORD_COUNT_CHART_FILENAME)
-    elif message.content.startswith("!statword"):
-        word = message.content.replace("!statword", "").split()
+    elif message.content.startswith("!statsword"):
+        word = message.content.replace("!statsword", "").split()
         if len(word) == 1 and not word[0].isdigit():
             message_content = get_stats_for_word(word[0])
             await client.send_message(message.channel, message_content)
         else:
-            await client.send_message(message.channel, "Improper useage: !statword *word*")
-    elif message.content.startswith("!statperson"):
+            await client.send_message(message.channel, "Improper usage: !statsword *word*")
+    elif message.content.startswith("!statsperson"):
         mentions = message.mentions
         if len(mentions) == 1:
             get_count_for_author(mentions[0].id)
             await client.send_file(message.channel, settings.WORD_COUNT_CHART_FILENAME)
         else:
-            await client.send_message(message.channel, "Improper useage: !statperson @person")
-    elif message.content.startswith("!clearstats"):
+            await client.send_message(message.channel, "Improper usage: !statsperson @person")
+    elif message.content.startswith("!statsclear"):
         wipe_database()
     elif guessing_game.is_game_active and message.content.isdigit():
         guessing_game.add_guess(message)
@@ -63,7 +61,7 @@ def start_game(target, *, loop=None):
 
 
 async def run_game():
-    await asyncio.sleep(settings.GAME_LENGTH_SECONDS)
+    await asyncio.sleep(settings.GUESSING_GAME_LENGTH)
     guessing_game.end_game()
     await client.send_message(guessing_game.game_channel, guessing_game.check_for_winner())
 

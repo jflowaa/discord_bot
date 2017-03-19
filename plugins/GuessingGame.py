@@ -19,7 +19,7 @@ class GuessingGame:
 
     def generate_answer(self):
         """Get a random number from the given range."""
-        self.answer = self.local_random.randint(1, settings.MAX_GUESS)
+        self.answer = self.local_random.randint(1, settings.GUESSING_GAME_MAX)
 
     def start_game(self, channel):
         """Starts the game for the channel."""
@@ -53,3 +53,8 @@ class GuessingGame:
             return "The winners are: " + ",".join(winner_list)
         else:
             return "The winner is: {}".format(winner_list[0])
+
+    def get_starting_message(self):
+        return """Guessing game started!
+Say a number in chat between 1 and {}
+The game will end in {} seconds""".format(settings.GUESSING_GAME_MAX, settings.GUESSING_GAME_LENGTH)
