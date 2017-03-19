@@ -54,9 +54,7 @@ def get_commands():
     commands = []
     commands.extend(settings.GUESSING_GAME_COMMANDS)
     commands.extend(settings.WORD_STATISTICS_COMMANDS)
-    print(commands)
     message = "A listing of all available commands: \n"
     for command in commands:
-        print(commands)
         message += command + "\n"
     return message
