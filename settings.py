@@ -10,7 +10,7 @@ GUESSING_GAME_MAX = 10
 GUESSING_GAME_LENGTH = 10
 GUESSING_GAME_COMMANDS = [
     "\nPlugin -- Guessing Game",
-    "!guess -- Starts the guessing game if one is not running"
+    "!guessgame -- Starts the guessing game if one is not running"
 ]
 
 # Charting data
@@ -21,10 +21,10 @@ WORD_COUNT_WORDS_PER_CHART = 25
 MIN_WORD_LENGTH = 3
 WORD_STATISTICS_COMMANDS = [
     "\nPlugin -- Word Statistics",
-    "!statssme -- Generates a chart of your top {} used words".format(WORD_COUNT_WORDS_PER_CHART),
-    "!statsall -- Generates a chart of everyone's collective top {} used words".format(WORD_COUNT_WORDS_PER_CHART),
     "!statsword *word* -- Returns the number of times *word* has been used by everyone",
-    "!statsperson @person -- Generates a chart for that person's top {} used words".format(WORD_COUNT_WORDS_PER_CHART)
+    "!statsme -- Generates a chart of your top {} used words".format(WORD_COUNT_WORDS_PER_CHART),
+    "!statsperson @person -- Generates a chart for that person's top {} used words".format(WORD_COUNT_WORDS_PER_CHART),
+    "!statsall -- Generates a chart of everyone's collective top {} used words".format(WORD_COUNT_WORDS_PER_CHART)
 ]
 
 

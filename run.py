@@ -23,7 +23,7 @@ async def on_ready():
 async def on_message(message):
     if message.content.startswith("!info"):
         await client.send_message(message.channel, get_commands())
-    elif message.content.startswith("!guess"):
+    elif message.content.startswith("!guessgame"):
         await client.send_message(message.channel, guessing_game.get_starting_message())
         if not guessing_game.is_game_active():
             guessing_game.start_game(message.channel)
