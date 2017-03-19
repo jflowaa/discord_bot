@@ -4,7 +4,7 @@ import asyncio
 import settings
 
 from plugins import GuessingGame
-from bot_logic import track_word_count, get_word_stats, get_stats_for_word, get_count_for_author
+from bot_logic import track_word_count, get_word_stats, get_stats_for_word, get_count_for_author, get_commands
 from database import wipe_database
 
 
@@ -21,7 +21,9 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith("!guess"):
+    if message.content.startswith("!info"):
+        await client.send_message(message.channel, get_commands())
+    elif message.content.startswith("!guess"):
         await client.send_message(message.channel, guessing_game.get_starting_message())
         if not guessing_game.is_game_active():
             guessing_game.start_game(message.channel)
@@ -51,7 +53,7 @@ async def on_message(message):
     elif guessing_game.is_game_active and message.content.isdigit():
         guessing_game.add_guess(message)
     else:
-        if message.author.display_name != "Cacabot" and not message.content.isdigit():
+        if message.author.id != client.user.id and not message.content.isdigit():
             track_word_count(message.author.id, message.content.split())
 
 

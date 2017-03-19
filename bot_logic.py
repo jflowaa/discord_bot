@@ -47,3 +47,16 @@ def get_stats_for_word(word):
 def strip_punctuation(word):
     """Strips punctuation from a word."""
     return "".join([c for c in word if c not in string.punctuation]).lower()
+
+
+def get_commands():
+    """Lists all the available commands."""
+    commands = []
+    commands.extend(settings.GUESSING_GAME_COMMANDS)
+    commands.extend(settings.WORD_STATISTICS_COMMANDS)
+    print(commands)
+    message = "A listing of all available commands: \n"
+    for command in commands:
+        print(commands)
+        message += command + "\n"
+    return message

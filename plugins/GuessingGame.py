@@ -54,7 +54,9 @@ class GuessingGame:
         else:
             return "The winner is: {}".format(winner_list[0])
 
-    def get_starting_message(self):
+    @staticmethod
+    def get_starting_message():
+        """Message displayed when someone starts the game."""
         return """Guessing game started!
 Say a number in chat between 1 and {}
 The game will end in {} seconds""".format(settings.GUESSING_GAME_MAX, settings.GUESSING_GAME_LENGTH)

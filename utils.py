@@ -12,7 +12,7 @@ from models import Base
 import settings
 
 
-engine = create_engine("sqlite:///{}/cacabot.db".format(settings.PROJECT_ROOT), echo=False)
+engine = create_engine("sqlite:///{}/bot.db".format(settings.PROJECT_ROOT), echo=False)
 Base.metadata.create_all(engine)  # Creates database if not exists
 Session = sessionmaker(bind=engine)
 
@@ -33,7 +33,7 @@ def session_scope():
 
 def chart_stats(stats):
     """Creates a chart with the given dictionary"""
-    word_list, count_list = zip(*stats[:settings.NUMBER_OF_WORDS_PER_CHART])
+    word_list, count_list = zip(*stats[:settings.WORD_COUNT_WORDS_PER_CHART])
     plt.barh(range(len(word_list)), count_list, align="center", height=0.5)
     plt.yticks(range(len(word_list)), word_list)
     plt.xlabel("Number of Times")
