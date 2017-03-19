@@ -9,6 +9,7 @@ DISCORD_TOKEN = os.environ.get("DISCORD_TOKEN") or "A_DISCORD_TOKEN"
 GUESSING_GAME_MAX = 10
 GUESSING_GAME_LENGTH = 10
 GUESSING_GAME_COMMANDS = [
+    "\nPlugin -- Guessing Game",
     "!guess -- Starts the guessing game if one is not running"
 ]
 
@@ -19,6 +20,7 @@ WORD_COUNT_WORDS_PER_CHART = 25
 # Word Statistics
 MIN_WORD_LENGTH = 3
 WORD_STATISTICS_COMMANDS = [
+    "\nPlugin -- Word Statistics",
     "!statssme -- Generates a chart of your top {} used words".format(WORD_COUNT_WORDS_PER_CHART),
     "!statsall -- Generates a chart of everyone's collective top {} used words".format(WORD_COUNT_WORDS_PER_CHART),
     "!statsword *word* -- Returns the number of times *word* has been used by everyone",
