@@ -1,5 +1,7 @@
 import os
 
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 # Auth
 DISCORD_TOKEN = os.environ.get("DISCORD_TOKEN") or "A_DISCORD_TOKEN"
 

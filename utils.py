@@ -11,7 +11,8 @@ import matplotlib.pyplot as plt
 from models import Base
 import settings
 
-engine = create_engine("sqlite:///cacabot.db", echo=False)
+
+engine = create_engine("sqlite:///{}/cacabot.db".format(settings.PROJECT_ROOT), echo=False)
 Base.metadata.create_all(engine)  # Creates database if not exists
 Session = sessionmaker(bind=engine)
 
