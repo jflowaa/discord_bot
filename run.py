@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-import discord
 import asyncio
-import settings
 
-from plugins import GuessingGame
+import discord
+
+import settings
 from bot_logic import track_word_count, get_word_stats, get_stats_for_word, get_count_for_author, get_commands
 from database import wipe_database
-
+from plugins import GuessingGame
 
 client = discord.Client()
 guessing_game = GuessingGame()
@@ -53,7 +53,9 @@ async def on_message(message):
     elif guessing_game.is_game_active and message.content.isdigit():
         guessing_game.add_guess(message)
     else:
-        if message.author.id != client.user.id and not message.content.isdigit():
+        if message.author.id != client.user.id \
+                and not message.content.isdigit() \
+                and not message.content.startswith("!"):
             track_word_count(message.author.id, message.content.split())
 
 
@@ -72,6 +74,7 @@ async def run_game():
 def run():
     yield from client.login(settings.DISCORD_TOKEN)
     yield from client.connect()
+
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
