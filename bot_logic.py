@@ -1,7 +1,5 @@
-import string
-
 from database import increment_word_count_for_author, get_count_for_all, get_count_for_author, get_word_count
-from utils import chart_stats
+from utils import chart_stats, strip_punctuation, check_if_url
 import settings
 
 
@@ -13,6 +11,10 @@ def track_word_count(author_id, message):
     :return:
     """
     for word in message:
+        # Let's check if word is URL, we don't want to track that
+        if check_if_url(word):
+            # This is a URL, skip the word
+            continue
         # Go word by word
         word = strip_punctuation(word)
         if len(word) >= settings.MIN_WORD_LENGTH:
@@ -42,11 +44,6 @@ def get_stats_for_word(word):
     """
     count = get_word_count(strip_punctuation(word))
     return "The word '{}' has been used **{}** times".format(word, count)
-
-
-def strip_punctuation(word):
-    """Strips punctuation from a word."""
-    return "".join([c for c in word if c not in string.punctuation]).lower()
 
 
 def get_commands():

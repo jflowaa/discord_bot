@@ -1,20 +1,24 @@
+import re
+import string
 from contextlib import contextmanager
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.exc import SQLAlchemyError
-
 import matplotlib
+from sqlalchemy import create_engine
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import sessionmaker
+
 matplotlib.use("agg")
 import matplotlib.pyplot as plt
 
 from models import Base
 import settings
 
-
 engine = create_engine("sqlite:///{}/bot.db".format(settings.PROJECT_ROOT), echo=False)
 Base.metadata.create_all(engine)  # Creates database if not exists
 Session = sessionmaker(bind=engine)
+
+url_pattern = re.compile(r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",
+                         re.IGNORECASE)
 
 
 @contextmanager
@@ -40,3 +44,13 @@ def chart_stats(stats):
     plt.xticks(range(max(count_list) + 1))
     plt.savefig(settings.WORD_COUNT_CHART_FILENAME)
     plt.clf()
+
+
+def strip_punctuation(word):
+    """Strips punctuation from a word."""
+    return "".join([c for c in word if c not in string.punctuation]).lower()
+
+
+def check_if_url(word):
+    """Checks if the word is the URL."""
+    return url_pattern.match(word)
