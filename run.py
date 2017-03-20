@@ -4,7 +4,7 @@ import asyncio
 import discord
 
 import settings
-from bot_logic import track_word_count, get_word_stats, get_stats_for_word, get_count_for_author, get_commands
+from bot_logic import track_word_count, get_word_stats, get_stats_for_word, get_commands
 from database import wipe_database
 from plugins import GuessingGame
 
@@ -44,7 +44,7 @@ async def on_message(message):
     elif message.content.startswith("!statsperson"):
         mentions = message.mentions
         if len(mentions) == 1:
-            get_count_for_author(mentions[0].id)
+            get_word_stats(mentions[0].id)
             await client.send_file(message.channel, settings.WORD_COUNT_CHART_FILENAME)
         else:
             await client.send_message(message.channel, "Improper usage: !statsperson @person")

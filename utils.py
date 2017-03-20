@@ -39,3 +39,4 @@ def chart_stats(stats):
     plt.xlabel("Number of Times")
     plt.xticks(range(max(count_list) + 1))
     plt.savefig(settings.WORD_COUNT_CHART_FILENAME)
+    plt.clf()
